@@ -65,6 +65,7 @@ I worked with a raw customer purchase dataset that had multiple issues: missing 
 ## Files
 
 - `project_raw_data.csv` — Original raw dataset
+- `Purchase Data Cleaning.ipynb` — Python code file
 - `Data Cleaning Project.pdf` — Detailed cleaning report (with explanations)
 - `Project_clean_file.csv` — Final cleaned dataset (output)
 
