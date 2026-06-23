@@ -47,12 +47,6 @@ Before building the dashboard, I cleaned and transformed the raw data in Power Q
 
 ---
 
-## Screenshot
-
-![Dashboard Preview](dashboard_preview.png)
-
----
-
 ## Key Takeaways
 
 - Python is the most popular programming language among data professionals
