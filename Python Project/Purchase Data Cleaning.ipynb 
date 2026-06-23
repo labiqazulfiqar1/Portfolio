@@ -1,0 +1,433 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "bd64b396-a1d9-4473-8be7-e516b39e3a7d",
+   "metadata": {},
+   "source": [
+    "Data Cleaning "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "id": "4be0d852-8b61-44ee-b99d-137de510658d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Customer_ID               3\n",
+       "Customer_Name             3\n",
+       "Province                  6\n",
+       "Age                       6\n",
+       "Education                 6\n",
+       "Earning_per_Month         6\n",
+       "Gender                    5\n",
+       "Mode_of_Purchase          6\n",
+       "Category                  3\n",
+       "Product_Purchased         3\n",
+       "Quantity                  6\n",
+       "Per_Unit_Price            3\n",
+       "Total_Purchase_Amount     3\n",
+       "Tax                      80\n",
+       "Feedback                  6\n",
+       "Unnamed: 15              80\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 45,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "df=pd.read_csv('project_data.csv')\n",
+    "df.isna().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "1197248e-f928-46d3-b192-19b8d45e232d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=df.drop(columns=df.filter(like=\"Unnamed\").columns)\n",
+    "# Didn't use the exact column number (15) because there can be unnamed 14,16 etc as well."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "d6850aa7-a54e-40eb-a159-f580ec4a17f1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Customer_ID               0\n",
+       "Customer_Name             0\n",
+       "Province                  3\n",
+       "Age                       3\n",
+       "Education                 3\n",
+       "Earning_per_Month         3\n",
+       "Gender                    2\n",
+       "Mode_of_Purchase          3\n",
+       "Category                  0\n",
+       "Product_Purchased         0\n",
+       "Quantity                  3\n",
+       "Per_Unit_Price            0\n",
+       "Total_Purchase_Amount     0\n",
+       "Tax                      77\n",
+       "Feedback                  3\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df=df.dropna(how='all')\n",
+    "df.isna().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "id": "542a309a-ebdb-4249-b939-68c8c8b25e12",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Customer_ID              0\n",
+       "Customer_Name            0\n",
+       "Province                 3\n",
+       "Age                      3\n",
+       "Education                3\n",
+       "Earning_per_Month        3\n",
+       "Gender                   2\n",
+       "Mode_of_Purchase         3\n",
+       "Category                 0\n",
+       "Product_Purchased        0\n",
+       "Quantity                 3\n",
+       "Per_Unit_Price           0\n",
+       "Total_Purchase_Amount    0\n",
+       "Feedback                 3\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 48,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df=df.drop(columns=['Tax'])\n",
+    "df.isna().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "id": "b8baa8ea-0f37-4bd7-be9c-d498440bad2d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Customer_ID</th>\n",
+       "      <th>Customer_Name</th>\n",
+       "      <th>Province</th>\n",
+       "      <th>Age</th>\n",
+       "      <th>Education</th>\n",
+       "      <th>Earning_per_Month</th>\n",
+       "      <th>Gender</th>\n",
+       "      <th>Mode_of_Purchase</th>\n",
+       "      <th>Category</th>\n",
+       "      <th>Product_Purchased</th>\n",
+       "      <th>Quantity</th>\n",
+       "      <th>Per_Unit_Price</th>\n",
+       "      <th>Total_Purchase_Amount</th>\n",
+       "      <th>Feedback</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>CUST072</td>\n",
+       "      <td>Fahad</td>\n",
+       "      <td>Khyber Pakhtunkhwa</td>\n",
+       "      <td>35.0</td>\n",
+       "      <td>Post Graduate</td>\n",
+       "      <td>136966.0</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>Physical</td>\n",
+       "      <td>Electronics</td>\n",
+       "      <td>Mobile</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>85000.0</td>\n",
+       "      <td>255000.0</td>\n",
+       "      <td>Unsatisfied</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>CUST072</td>\n",
+       "      <td>Fahad</td>\n",
+       "      <td>Khyber Pakhtunkhwa</td>\n",
+       "      <td>35.0</td>\n",
+       "      <td>Post Graduate</td>\n",
+       "      <td>136966.0</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>Physical</td>\n",
+       "      <td>Electronics</td>\n",
+       "      <td>Mobile</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>85000.0</td>\n",
+       "      <td>255000.0</td>\n",
+       "      <td>Unsatisfied</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75</th>\n",
+       "      <td>CUST072</td>\n",
+       "      <td>Fahad</td>\n",
+       "      <td>Khyber Pakhtunkhwa</td>\n",
+       "      <td>35.0</td>\n",
+       "      <td>Post Graduate</td>\n",
+       "      <td>136966.0</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>Physical</td>\n",
+       "      <td>Electronics</td>\n",
+       "      <td>Mobile</td>\n",
+       "      <td>3.0</td>\n",
+       "      <td>85000.0</td>\n",
+       "      <td>255000.0</td>\n",
+       "      <td>Unsatisfied</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   Customer_ID Customer_Name            Province   Age      Education  \\\n",
+       "7      CUST072         Fahad  Khyber Pakhtunkhwa  35.0  Post Graduate   \n",
+       "22     CUST072         Fahad  Khyber Pakhtunkhwa  35.0  Post Graduate   \n",
+       "75     CUST072         Fahad  Khyber Pakhtunkhwa  35.0  Post Graduate   \n",
+       "\n",
+       "    Earning_per_Month Gender Mode_of_Purchase     Category Product_Purchased  \\\n",
+       "7            136966.0   Male         Physical  Electronics            Mobile   \n",
+       "22           136966.0   Male         Physical  Electronics            Mobile   \n",
+       "75           136966.0   Male         Physical  Electronics            Mobile   \n",
+       "\n",
+       "    Quantity  Per_Unit_Price  Total_Purchase_Amount     Feedback  \n",
+       "7        3.0         85000.0               255000.0  Unsatisfied  \n",
+       "22       3.0         85000.0               255000.0  Unsatisfied  \n",
+       "75       3.0         85000.0               255000.0  Unsatisfied  "
+      ]
+     },
+     "execution_count": 49,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[df.duplicated(keep=False)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "id": "4b6487f2-608f-45e4-a9df-db1940471580",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "df=df.drop_duplicates(inplace=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "e53cab1b-99ac-4759-b524-3b1c5f725bfe",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=df[df['Customer_ID'].str.match(r'^CUST\\d+$')]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "id": "77b1058c-c494-4139-a458-a77cc42503bb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=df.sort_values('Customer_ID').reset_index(drop=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "id": "3f5a732c-062b-4951-b18c-2175dd355421",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Province']=df['Province'].fillna(df['Province'].mode()[0])\n",
+    "#Didn't drop rows because filling is possible."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "id": "8b4497ce-d507-4af1-8332-e953466d121e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Feedback']=df['Feedback'].fillna(df['Feedback'].mode()[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "id": "eb6efc33-fad8-459d-a91b-46c1a720a858",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Quantity']=df['Quantity'].fillna((df['Total_Purchase_Amount'] / df['Per_Unit_Price']))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "id": "343b2620-0dc8-4ac8-895d-33defba4e439",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Mode_of_Purchase']=df['Mode_of_Purchase'].fillna(df['Mode_of_Purchase'].mode()[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "id": "1a4b5663-fb62-437a-a504-0022887dc3c9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Gender']=df['Gender'].fillna(df['Customer_Name'].map({'Fatima':'Female','Imran':'Male'}))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "id": "93289cc6-a000-4bb5-92c6-4c2a6d8aab70",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Education']=df['Education'].fillna(df['Education'].mode()[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "id": "5cb4a3b4-2e46-4d7b-8db8-9578cf3a53e6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Age']=df['Age'].fillna(df['Age'].median())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "id": "98b6b6f7-5a38-4f48-9538-268b963c7fe6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Earning_per_Month']=df['Earning_per_Month'].fillna(df['Earning_per_Month'].median())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "id": "83df7eff-8ee3-4ba4-867e-5587ab59ae5a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df[['Age','Earning_per_Month','Quantity','Per_Unit_Price','Total_Purchase_Amount']] = df[['Age','Earning_per_Month','Quantity','Per_Unit_Price','Total_Purchase_Amount']].astype(int)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "id": "9a988874-d42e-4f10-8e57-6d3a557acbed",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df['Marketing_Channel']=np.random.choice(['Email','Social Media','Referral','Ads','Walk-in'],len(df))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "id": "0affb1cb-6371-4612-b3b3-8d282fe667cf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.to_csv('Project_clean_file.csv',index=False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eaa54f16-ae77-479e-8867-9b61be6c411c",
+   "metadata": {},
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
