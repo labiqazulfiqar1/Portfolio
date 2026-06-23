@@ -43,16 +43,16 @@ I chose this dataset because I wanted to understand the real impact of the post-
 
 **Worst Hit Industries**
 - Consumer — 45,000+ layoffs
-- Retail — 35,000+ layoffs
-- Healthcare — 20,000+ layoffs
+- Retail — 43,000+ layoffs
+- Other — 36,000+ layoffs
 
 **Worst Hit Countries**
-- United States — 200,000+ layoffs
-- India — 25,000+ layoffs
-- Germany — 8,000+ layoffs
+- United States — 250,000+ layoffs
+- India — 35,000+ layoffs
+- Netherlands — 17,000+ layoffs
 
 **Companies That Shut Down Completely**
-Several companies laid off 100% of their workforce, including EMX Digital, Openpay, Mode Global, Wyre, and Medly — indicating total business closures.
+Several companies laid off 100% of their workforce, including EMX Digital, Openpay, Mode Global, Wyre, and Medly, indicating total business closures.
 
 **Time-Based Trends**
 - Peak month: January 2023
